@@ -20,7 +20,7 @@ const CommentForm: React.FC<Props> = ({ postId, onSubmit }) => {
   const handleSubmit = async () => {
     if (!content.trim()) return
     try {
-      const newComment = await postComment({ postId, nickname, emoji, content: content.trim() })
+      const newComment = await postComment(postId, { nickname, emoji, content })
       onSubmit(newComment)
       setContent('')
     } catch {
