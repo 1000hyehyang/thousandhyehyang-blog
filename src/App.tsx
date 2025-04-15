@@ -1,5 +1,4 @@
 // src/App.tsx
-// App.tsx
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import PostDetail from './pages/PostDetail'
@@ -8,7 +7,7 @@ import { SearchModalProvider, useSearchModal } from './context/SearchModalContex
 import SearchModal from './components/SearchModal'
 
 function AppContent() {
-  const { isOpen, close, posts } = useSearchModal()
+  const { isOpen, close } = useSearchModal()
 
   return (
     <>
@@ -17,7 +16,7 @@ function AppContent() {
         <Route path="/post/:id" element={<PostDetail />} />
         <Route path="/write" element={<ProtectedWritePage />} />
       </Routes>
-      <SearchModal isOpen={isOpen} onClose={close} articles={posts} />
+      <SearchModal isOpen={isOpen} onClose={close} />
     </>
   )
 }
