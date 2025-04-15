@@ -2,22 +2,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { FiX, FiSearch, FiClock, FiTrash2 } from 'react-icons/fi'
-import { Article } from './ArticleCard'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Post, getPagedPosts } from '../api/postApi'
 
 interface Props {
   isOpen: boolean
   onClose: () => void
-  articles: Article[]
 }
 
 const MAX_RECENTS = 5
 const RECENT_KEY = 'recentSearches'
 
-const SearchModal: React.FC<Props> = ({ isOpen, onClose, articles }) => {
+const SearchModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const [keyword, setKeyword] = useState('')
   const [recents, setRecents] = useState<string[]>([])
+  const [posts, setPosts] = useState<Post[]>([])
 
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
@@ -31,6 +31,12 @@ const SearchModal: React.FC<Props> = ({ isOpen, onClose, articles }) => {
     if (isOpen && inputRef.current) {
       setTimeout(() => inputRef.current?.focus(), 100)
     }
+
+    if (isOpen) {
+      getPagedPosts(0, 100) // 첫 100개 로드
+        .then((res) => setPosts(res.content))
+        .catch((err) => console.error('검색용 게시글 로딩 실패', err))
+    }
   }, [isOpen])
 
   const saveKeyword = (value: string) => {
@@ -40,11 +46,11 @@ const SearchModal: React.FC<Props> = ({ isOpen, onClose, articles }) => {
     localStorage.setItem(RECENT_KEY, JSON.stringify(newRecents))
   }
 
-  const filtered = articles.filter((a) =>
-    a.title.toLowerCase().includes(keyword.toLowerCase())
+  const filtered = posts.filter((p) =>
+    p.title.toLowerCase().includes(keyword.toLowerCase())
   )
 
-  const handleSelect = (item: string | Article) => {
+  const handleSelect = (item: string | Post) => {
     if (typeof item === 'string') {
       setKeyword(item)
       return
@@ -109,7 +115,7 @@ const SearchModal: React.FC<Props> = ({ isOpen, onClose, articles }) => {
                 ) : (
                   filtered.map((item) => (
                     <ResultItem key={item.id} onClick={() => handleSelect(item)}>
-                      <Thumb src={item.thumbnail} />
+                      <Thumb src={item.thumbnailUrl} />
                       <Text>{item.title}</Text>
                     </ResultItem>
                   ))
