@@ -1,17 +1,20 @@
-import { useState } from 'react'
+// src/components/CommentSection.tsx
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CommentForm from './CommentForm'
 import CommentList from './CommentList'
+import { Comment, fetchComments } from '../api/commentApi'
 
-export interface Comment {
-  id: number
-  nickname: string
-  content: string
-  emoji: string
+interface Props {
+  postId: number
 }
 
-const CommentSection = () => {
+const CommentSection: React.FC<Props> = ({ postId }) => {
   const [comments, setComments] = useState<Comment[]>([])
+
+  useEffect(() => {
+    fetchComments(postId).then(setComments).catch(console.error)
+  }, [postId])
 
   const handleAddComment = (comment: Comment) => {
     setComments((prev) => [comment, ...prev])
@@ -20,7 +23,7 @@ const CommentSection = () => {
   return (
     <Wrapper>
       <Title>댓글 {comments.length}</Title>
-      <CommentForm onSubmit={handleAddComment} />
+      <CommentForm postId={postId} onSubmit={handleAddComment} />
       <CommentList comments={comments} />
     </Wrapper>
   )

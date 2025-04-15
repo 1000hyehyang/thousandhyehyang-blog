@@ -1,29 +1,31 @@
+// src/components/CommentForm.tsx
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Comment } from './CommentSection'
+import { postComment } from '../api/commentApi'
+import { Comment } from '../api/commentApi'
 
 const emojis = ['🦁', '🐧', '🦄', '🐙', '🐸', '🐝', '🦊', '🐱', '🐰']
 const nicknames = ['활기찬수달', '재치있는기린', '밝은사자', '오뎅이달팽쥐', '씩씩한앵무새']
 
 interface Props {
+  postId: number
   onSubmit: (comment: Comment) => void
 }
 
-const CommentForm: React.FC<Props> = ({ onSubmit }) => {
+const CommentForm: React.FC<Props> = ({ postId, onSubmit }) => {
   const [nickname, setNickname] = useState(randomNickname())
   const [emoji, setEmoji] = useState(randomEmoji())
   const [content, setContent] = useState('')
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!content.trim()) return
-    const newComment: Comment = {
-      id: Date.now(),
-      nickname,
-      emoji,
-      content: content.trim(),
+    try {
+      const newComment = await postComment({ postId, nickname, emoji, content: content.trim() })
+      onSubmit(newComment)
+      setContent('')
+    } catch {
+      alert('댓글 등록 실패')
     }
-    onSubmit(newComment)
-    setContent('')
   }
 
   const handleRandomize = () => {

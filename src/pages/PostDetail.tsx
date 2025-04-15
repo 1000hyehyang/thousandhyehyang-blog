@@ -49,9 +49,11 @@ const PostDetail = () => {
             <PostDate>{new Date(post.createdAt).toLocaleDateString()}</PostDate>
           </Meta>
           <MarkdownWrapper>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {post.content}
+            </ReactMarkdown>
           </MarkdownWrapper>
-          <CommentSection />
+          <CommentSection postId={post.id} />
         </Content>
       </PageWrapper>
     </>
@@ -97,7 +99,7 @@ const TagWrapper = styled.div`
 const Tag = styled.span`
   font-size: 0.85rem;
   color: #ffa726;
-  background-color:rgb(255, 242, 221);
+  background-color: rgb(255, 242, 221);
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
 `;
