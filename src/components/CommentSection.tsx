@@ -1,4 +1,3 @@
-// src/components/CommentSection.tsx
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import CommentForm from './CommentForm'
@@ -13,7 +12,9 @@ const CommentSection: React.FC<Props> = ({ postId }) => {
   const [comments, setComments] = useState<Comment[]>([])
 
   useEffect(() => {
-    fetchComments(postId).then(setComments).catch(console.error)
+    fetchComments(postId)
+      .then(setComments)
+      .catch((err) => console.error('댓글 불러오기 실패', err))
   }, [postId])
 
   const handleAddComment = (comment: Comment) => {

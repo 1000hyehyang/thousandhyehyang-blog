@@ -1,8 +1,6 @@
-// src/components/CommentForm.tsx
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
-import { postComment } from '../api/commentApi'
-import { Comment } from '../api/commentApi'
+import { postComment, Comment } from '../api/commentApi'
 
 const emojis = ['🦁', '🐧', '🦄', '🐙', '🐸', '🐝', '🦊', '🐱', '🐰']
 const nicknames = ['활기찬수달', '재치있는기린', '밝은사자', '오뎅이달팽쥐', '씩씩한앵무새']
@@ -20,7 +18,11 @@ const CommentForm: React.FC<Props> = ({ postId, onSubmit }) => {
   const handleSubmit = async () => {
     if (!content.trim()) return
     try {
-      const newComment = await postComment(postId, { nickname, emoji, content })
+      const newComment = await postComment(postId, {
+        nickname,
+        emoji,
+        content: content.trim(),
+      })
       onSubmit(newComment)
       setContent('')
     } catch {

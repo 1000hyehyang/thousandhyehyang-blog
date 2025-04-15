@@ -47,6 +47,7 @@ export const getPagedPosts = async (
 }
 
 export const getPostById = async (id: number): Promise<Post> => {
-  const res = await axiosInstance.get<Post>(`/api/posts/${id}`)
-  return res.data
+  const res = await axiosInstance.get<{ data: Post }>(`/api/posts/${id}`)
+  return res.data.data
 }
+
