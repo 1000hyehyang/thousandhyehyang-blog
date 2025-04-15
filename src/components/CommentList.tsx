@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Comment } from './CommentSection'
+import type { Comment } from '../api/commentApi'
 
 interface Props {
   comments: Comment[]
