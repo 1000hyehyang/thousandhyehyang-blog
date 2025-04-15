@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // CORS에서 쿠키 쓰지 않더라도 Vercel-Render 통신엔 보통 true 유지
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
 })
 
