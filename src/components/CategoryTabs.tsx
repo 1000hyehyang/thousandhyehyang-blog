@@ -2,7 +2,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const tabs = ['전체', '개발', '데이터/ML', '디자인']
+const tabs = ['전체', '개발', '디자인', '프로젝트', '기타']
 
 interface Props {
   selected: string

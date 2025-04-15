@@ -33,9 +33,9 @@ const Home = () => {
   }, [currentPage]);
 
   const trending = [
-    { id: 101, title: "TPS 1만을 버티기 위한 캐시 적용기", author: "김경윤" },
-    { id: 102, title: "토스피플: 이것도 나니까 할 수 있었다", author: "이지윤" },
-    { id: 103, title: "복잡한 컴포넌트의 자료구조 설계법", author: "박건영" },
+    { id: 101, title: "안타 안~타 날려버려", author: "김휘집" },
+    { id: 102, title: "안타를 날려주세요", author: "김상수" },
+    { id: 103, title: "오 승리의 ~ ", author: "최정" },
   ];
 
   return (
