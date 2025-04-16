@@ -53,7 +53,7 @@ const Card = styled.article`
   }
 
   &:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 `;
 
@@ -62,6 +62,11 @@ const Content = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 1.5rem;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const TextBlock = styled.div`
@@ -92,16 +97,30 @@ const Meta = styled.span`
 `;
 
 const ThumbnailWrapper = styled.div`
-  width: clamp(96px, 12vw, 112px);
-  height: clamp(60px, 8vw, 72px);
+  width: clamp(96px, 16vw, 160px);
+  height: clamp(60px, 10vw, 100px);
   border-radius: 0.5rem;
   overflow: hidden;
   flex-shrink: 0;
-`
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  @media (max-width: 640px) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; // 모바일에선 비율 유지하면서 자동 크기
+    margin-top: 1rem;
+  }
+`;
 
 const Thumbnail = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
-`
+  transform-origin: center center;
+`;
