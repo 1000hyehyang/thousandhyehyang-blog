@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import ArticleCard from "../components/ArticleCard";
+import ArticleSkeletonCard from "../components/ArticleSkeletonCard";
 import CategoryTabs from "../components/CategoryTabs";
 import Pagination from "../components/Pagination";
 import TrendingPosts from "../components/TrendingPosts";
@@ -12,16 +13,25 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+
   const pageSize = 5;
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
       try {
-        const data = await getPagedPosts(currentPage - 1, pageSize, selectedCategory);
+        const data = await getPagedPosts(
+          currentPage - 1,
+          pageSize,
+          selectedCategory
+        );
         setPosts(data.content);
         setTotalPages(data.totalPages);
       } catch (err) {
         console.error("게시글 목록 불러오기 실패:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -51,18 +61,22 @@ const Home = () => {
             }}
           />
           <ArticleList>
-            {posts.map((post) => (
-              <ArticleCard
-                key={post.id}
-                id={post.id}
-                title={post.title}
-                description={post.content.slice(0, 100) + "..."}
-                date={new Date(post.createdAt).toLocaleDateString()}
-                author="천혜향"
-                thumbnail={post.thumbnailUrl}
-                category={post.category}
-              />
-            ))}
+            {loading
+              ? Array.from({ length: posts.length || pageSize }).map(
+                  (_, idx) => <ArticleSkeletonCard key={idx} />
+                )
+              : posts.map((post) => (
+                  <ArticleCard
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    description={post.content.slice(0, 100) + "..."}
+                    date={new Date(post.createdAt).toLocaleDateString()}
+                    author="천혜향"
+                    thumbnail={post.thumbnailUrl}
+                    category={post.category}
+                  />
+                ))}
           </ArticleList>
           <Pagination
             currentPage={currentPage}

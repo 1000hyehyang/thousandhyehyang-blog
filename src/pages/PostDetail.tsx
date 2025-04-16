@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import CommentSection from "../components/CommentSection";
+import Loader from "../components/common/Loader";
 import { getPostById, Post } from "../api/postApi";
 
 const PostDetail = () => {
@@ -29,7 +30,13 @@ const PostDetail = () => {
     fetchPost();
   }, [id]);
 
-  if (loading) return <div>로딩 중...</div>;
+  if (loading)
+    return (
+      <FullscreenLoaderWrapper>
+        <Loader />
+      </FullscreenLoaderWrapper>
+    );
+
   if (!post) return <div>존재하지 않는 글입니다.</div>;
 
   return (
@@ -67,6 +74,13 @@ const PageWrapper = styled.div`
   max-width: 720px;
   margin: 0 auto;
   padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 5vw, 2rem);
+`;
+
+const FullscreenLoaderWrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  background: #faf9f6;
+  z-index: 9999;
 `;
 
 const HeaderImage = styled.img`
@@ -138,5 +152,28 @@ const MarkdownWrapper = styled.div`
   ul {
     margin-left: 1.25rem;
     list-style: disc;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 1rem auto; /* Centers the image horizontally */
+    border-radius: 10px;
+  }
+
+  code {
+    background-color: #f4f4f4;
+    padding: 0.4rem 0.6rem;
+    border-radius: 10px;
+    font-family: Consolas, monospace;
+    font-size: 0.9rem;
+  }
+
+  pre {
+    background-color: #f4f4f4;
+    padding: 1.2rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    margin: 1rem 0;
   }
 `;
