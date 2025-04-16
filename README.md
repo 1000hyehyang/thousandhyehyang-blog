@@ -36,3 +36,5 @@
 [![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
 [![Cloudflare R2](https://img.shields.io/badge/Cloudflare%20R2-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://www.cloudflare.com/products/r2/)
+[![Uptime Robot](https://img.shields.io/badge/UptimeRobot-Monitoring-3FB950?style=for-the-badge&logo=uptime-kuma&logoColor=white)](https://uptimerobot.com/)
+
