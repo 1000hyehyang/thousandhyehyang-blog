@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import { useSearchModal } from "../context/SearchModalContext";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   isOwner?: boolean;
@@ -13,7 +14,9 @@ const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <Wrapper>
-      <Logo>🍊tech.blog</Logo>
+      <StyledLink to="/"> {/* 홈으로 이동 */}
+        <Logo>🍊tech.blog</Logo>
+      </StyledLink>
       <Actions>
         <SearchButton onClick={open}>
           <FiSearch size={20} />
@@ -37,6 +40,10 @@ const Wrapper = styled.header`
   position: sticky;
   top: 0;
   z-index: 100;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const Logo = styled.h1`
