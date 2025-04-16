@@ -1,5 +1,4 @@
 // src/components/ArticleSkeletonCard.tsx
-import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const ArticleSkeletonCard = () => {

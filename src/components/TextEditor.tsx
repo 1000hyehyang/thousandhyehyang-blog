@@ -23,7 +23,7 @@ const TextEditor = ({ value, onChange }: TextEditorProps) => {
 
   useEffect(() => {
     debouncedPreview(value);
-  }, [value]);
+  }, [value, debouncedPreview]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
