@@ -5,7 +5,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { createPost } from "../api/postApi";
 import { uploadImage } from "../api/imageApi";
 
-const categories = ["개발", "데이터/ML", "디자인"];
+const categories = ['개발', '디자인', '프로젝트', '기타'];
 
 const WritePage = () => {
   const [title, setTitle] = useState("");
@@ -14,7 +14,7 @@ const WritePage = () => {
   const [inputTag, setInputTag] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState<string>("");
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const [content, setContent] = useState(""); // ✨ 에디터 연동용 상태
+  const [content, setContent] = useState(""); 
 
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputTag.trim()) {
