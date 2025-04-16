@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { postComment, Comment } from '../api/commentApi'
-
-const emojis = ['🦁', '🐧', '🦄', '🐙', '🐸', '🐝', '🦊', '🐱', '🐰']
-const nicknames = ['활기찬수달', '재치있는기린', '밝은사자', '오뎅이달팽쥐', '씩씩한앵무새']
+import { emojis, nicknames } from './commentMeta'
 
 interface Props {
   postId: number
